@@ -1,0 +1,13 @@
+.link {
+  color: #777;
+}
+
+ul {
+  display: flex;
+  // align-content: space-between;
+  li {
+    list-style-type: none;
+    text-decoration: none;
+    margin-right: 1rem;
+  }
+}

@@ -1,0 +1,9 @@
+.container {
+  background-color: #99999909;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  &:hover {
+    background-color: #eee;
+    cursor: pointer;
+  }
+}
