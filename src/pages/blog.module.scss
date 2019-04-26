@@ -1,9 +1,19 @@
-.container {
-  background-color: #99999909;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  &:hover {
-    background-color: #eee;
-    cursor: pointer;
+.link {
+  text-decoration: none;
+  li {
+    background-color: #99999909;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    color: #333;
+
+    list-style-type: none;
+    margin-right: 1rem;
+    h4 {
+      color: #777;
+    }
+    &:hover {
+      background-color: #eee;
+      cursor: pointer;
+    }
   }
 }

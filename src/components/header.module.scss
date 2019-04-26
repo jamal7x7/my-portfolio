@@ -1,5 +1,5 @@
-.link {
-  color: #777;
+.link:active {
+  color: #111;
 }
 
 ul {
@@ -7,7 +7,10 @@ ul {
   // align-content: space-between;
   li {
     list-style-type: none;
-    text-decoration: none;
     margin-right: 1rem;
+    a {
+      text-decoration: none;
+      color: #777;
+    }
   }
 }
