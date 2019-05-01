@@ -136,15 +136,21 @@ p {
 }
 
 img {
-  max-width: 100%;
-
   filter: grayscale(100%);
+
+  height: 400px;
+  width: 350px;
+
+  object-fit: cover;
+
+  background-size: cover;
+  background-size: 20px;
+  background-position-x: center; /* Add this line */
+  background-position-y: center; /* Add this line */
 }
 img:hover {
-  max-width: 100%;
-
   filter: grayscale(0%);
-  filter: hue-rotate(270deg);
+  filter: hue-rotate(283deg);
 }
 
 /* Cursor */

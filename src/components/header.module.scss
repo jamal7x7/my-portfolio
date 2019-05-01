@@ -1,12 +1,17 @@
 $t-font: montserrat;
 $purplish: #db8eda;
 $beige: beige;
+$primary: #8c4ef8;
+$aux: #5a56f8;
+$bg2: #0c0421;
+$bg: #1d1c23;
+$code-bg-2: #100e1777;
 
 .header {
   display: flex;
   height: 100%;
   justify-content: space-between;
-  // background-color: red;
+  // background-color: $code-bg-2;
 }
 .logo {
   margin-left: 30px;

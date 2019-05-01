@@ -7,7 +7,7 @@ export default () => (
   <Layout>
     <div className={aboutStyles.wrapper}>
       <div>
-        <img src="./profile.jpg" height="400" width="350" />
+        <img src="./profile.jpg" />
       </div>
       <div className={aboutStyles.about}>
         <h2 className="content-title">About me.</h2>
