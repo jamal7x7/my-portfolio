@@ -1,0 +1,29 @@
+$bg: #1d1c23;
+$bgm: #062659;
+$bgd: #041a3e;
+$main: #eee;
+$purplish: #db8eda;
+$bgl: #073175;
+$bluew: #5e85c3;
+$pink: #dd8eda;
+$blue: #42a3f9;
+$marron: #3a3a3a;
+$react-blue: #61dafb;
+
+$primary: #8c4ef8;
+
+$p-font: Merriweather;
+$t-font: montserrat;
+
+$grad: linear-gradient(225deg, $pink -11%, $blue 100%);
+$gradl: linear-gradient(225deg, $pink -30%, $blue 100%);
+
+/* Cursor */
+.typed-cursor {
+  color: $primary;
+  background: $primary;
+}
+
+/* If fade out option is set */
+.typed-fade-out {
+}

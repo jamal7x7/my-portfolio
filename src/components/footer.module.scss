@@ -1,0 +1,13 @@
+.footer {
+  grid-area: footer;
+  color: #aaa;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  // background: red;
+}
+h6 {
+  padding: 0;
+  opacity: 0.5;
+  margin: 0;
+}

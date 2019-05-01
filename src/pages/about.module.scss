@@ -1,0 +1,13 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 500px));
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    " .  about "
+    " .  about "
+    " .  about ";
+}
+
+.about {
+  grid-area: about;
+}
