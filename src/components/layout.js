@@ -11,10 +11,11 @@ const Layout = props => {
   return (
     <div
       className={layoutStyles.container}
-      style={{
-        color: darkmode ? 'beige' : '#1d1c23',
-        background: darkmode ? '#1d1c23' : '#0C0421',
-      }}
+      // style={{
+      //   color: darkmode ? 'beige' : '#1d1c23',
+      //   background: darkmode ? '#1d1c23' : '#0C0421',
+      //   zIndex: '-4',
+      // }}
     >
       <div className={layoutStyles.menu}>
         <Header />

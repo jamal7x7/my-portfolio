@@ -3,11 +3,31 @@
   grid-template-columns: repeat(2, minmax(300px, 500px));
   grid-template-rows: 1fr;
   grid-template-areas:
-    " .  about "
-    " .  about "
-    " .  about ";
+    ' .  about '
+    ' .  about '
+    ' .  about ';
 }
 
 .about {
   grid-area: about;
+}
+
+.card {
+  width: 350px;
+  height: 400px;
+  object-fit: cover;
+  background: grey;
+  border-radius: 5px;
+  background-image: url('../images/profile.jpg');
+  background-size: cover;
+  background-position: center center;
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s;
+  will-change: transform;
+  filter: grayscale(100%);
+}
+
+.card:hover {
+  box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 1);
+  filter: hue-rotate(283deg);
 }

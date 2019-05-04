@@ -1,7 +1,8 @@
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import React from 'react'
 import Layout from '../components/layout'
-// import Blob from '../components/svg/Blob'
+import Blob from '../components/svg/Blob'
+// import Goo from '../components/svg/Goo'
 import TypedReact from '../components/Typed'
 // import './App.sass'
 import indexStyles from './index.module.scss'
@@ -23,7 +24,8 @@ export default () => {
         <br />
         <br />
         <br />
-        {/* <Blob /> */}
+        <Blob />
+
         <br />
         <br />
         <h2 className="content-title">

@@ -6,10 +6,7 @@ import React, {
   useState,
 } from 'react'
 import './App.sass'
-import BlobNode from './BlobNode'
 import BlobReact from './BlobReact'
-import Particle from './Particle'
-import Stats from './Stats'
 
 const begining = Date.now()
 
@@ -17,6 +14,7 @@ export default () => {
   let [stop, setStop] = useState(true)
 
   let [time, setTime] = useState(0)
+  let [timer, setTimer] = useState(0)
 
   let [show, setShow] = useState(0)
 
@@ -27,9 +25,17 @@ export default () => {
     },
   ])
 
+  // useEffect(() => {
+
+  //   // let tms = (Date.now() - begining) / 150
+  //   // requestAnimationFrame(() => {
+  //   //   setTime(time + 1)
+  //   // })
+  // })
+
   useEffect(() => {
     let tms = (Date.now() - begining) / 150
-    stop ? setTime(Number.parseFloat(tms).toFixed(3)) : setTime(time)
+    stop ? setTime(Number.parseFloat(tms).toFixed(1)) : setTime(time)
   })
 
   const [cc, setCc] = useState([
@@ -81,7 +87,7 @@ export default () => {
     // let phi0 = 100
     let phi0 = 0
 
-    let xa = 900 + 10 * Math.cos(phi2 + 10)
+    let xa = 1100 + 10 * Math.cos(phi2 + 10)
     let ya = 400 + 30 * Math.sin(phi2 + 70)
 
     let xb = xa + hx * Math.cos(phi * time + phi0)
@@ -198,17 +204,17 @@ export default () => {
 
   return (
     <div className="App">
-      <Stats
+      {/*<Stats
         coo={coo}
         show={show}
         stop={stop}
         time={time}
         handleStop={handleStop}
         handleIsShown={handleIsShown}
-      />
+     /> */}
 
-      <Particle coo={coo} />
-      <BlobNode coo={coo} show={show} stop={stop} time={time} />
+      {/*<Particle coo={coo} />
+  <BlobNode coo={coo} show={show} stop={stop} time={time} /> */}
       <BlobReact coo={coo} show={show} stop={stop} time={time} />
     </div>
   )
