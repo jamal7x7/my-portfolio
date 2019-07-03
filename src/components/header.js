@@ -1,6 +1,6 @@
-import { Link } from 'gatsby'
-import React from 'react'
-import headerStyles from './header.module.scss'
+import { Link } from 'gatsby';
+import React from 'react';
+import headerStyles from './header.module.scss';
 
 export const Header = () => (
   <header className={headerStyles.header}>
@@ -27,9 +27,18 @@ export const Header = () => (
           <Link
             className={headerStyles.linkItem}
             activeClassName={headerStyles.activeNav}
+            to="/my-work"
+          >
+            My Work
+          </Link>
+        </li>
+        <li>
+          <Link
+            className={headerStyles.linkItem}
+            activeClassName={headerStyles.activeNav}
             to="/about"
           >
-            About me
+            About 
           </Link>
         </li>
         <li>

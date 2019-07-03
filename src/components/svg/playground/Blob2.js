@@ -5,9 +5,8 @@ import React, {
   // useRef,
   useState,
 } from 'react'
+import BlobChild from '../BlobCild'
 import './App.sass'
-import BlobChild from './BlobCild'
-import ReactLogo from './Logos/ReactLogo'
 
 const begining = Date.now()
 
@@ -26,39 +25,6 @@ export default () => {
     },
   ])
 
-  const [children, setChildren] = useState([
-    {
-      text: 'React',
-      phi0: 0,
-      phib: 0.15,
-      hxb: 360,
-      show: true,
-      time: time,
-      color: { p: '#61DAFB', s: '#0084FF' },
-      logoURL: './Logos/ReactLogo.js',
-    },
-    {
-      text: 'GraphQL',
-      phi0: 2,
-      phib: 0.15,
-      hxb: 360,
-      show: true,
-      time: time,
-      color: { p: '#E535AB', s: '#DB00FF' },
-      logoURL: './Logos/ReactLogo.js',
-    },
-    {
-      text: 'Node',
-      phi0: 4,
-      phib: 0.15,
-      hxb: 360,
-      show: true,
-      time: time,
-      color: { p: '#4AFF00', s: '#539C00' },
-      logoURL: './Logos/ReactLogo.js',
-    },
-  ])
-
   // useEffect(() => {
 
   //   // let tms = (Date.now() - begining) / 150
@@ -72,15 +38,18 @@ export default () => {
     stop ? setTime(Number.parseFloat(tms).toFixed(1)) : setTime(time)
   })
 
-  const [cte, setCte] = useState({
-    hxb: 350,
-    hyb: 200,
-    phia: 0.25,
-    phib: 0.15,
-    phib0: 0,
-  })
+  const [cc, setCc] = useState([
+    {
+      R: { ra: 150, rb: 50 },
+
+      A: { x: 420, y: 300 },
+      B: { x: 0, y: 0 },
+    },
+  ])
 
   const [coo, setCoo] = useState({
+    phi0: 0,
+
     R: { ra: 150, rb: 50 },
 
     A: { x: 420, y: 300 },
@@ -113,21 +82,18 @@ export default () => {
     // e.preventDefault()
     // let bound = svgRef.current.getBoundingClientRect()
 
-    // let hxb = 350
-    // let hyb = 200
-    // let phib = 0.15
-    // let phia = 0.25
+    let hx = 350
+    let hy = 200
+    let phi = 0.15
+    let phi2 = 0.25 * time
     // let phi0 = 100
     // let phi0 = 0
 
-    // let xa = 1100 + 10 * Math.cos(cte.phia * time + 10)
-    // let ya = 400 + 30 * Math.sin(cte.phia * time + 70)
+    let xa = 1100 + 10 * Math.cos(phi2 + 10)
+    let ya = 400 + 30 * Math.sin(phi2 + 70)
 
-    let xa = 900
-    let ya = 400
-
-    let xb = xa + cte.hxb * Math.cos(cte.phib * time + cte.phib0)
-    let yb = ya + cte.hyb * Math.sin(cte.phib * time + cte.phib0)
+    let xb = xa + hx * Math.cos(phi * time + coo.phi0)
+    let yb = ya + hy * Math.sin(phi * time + coo.phi0)
     // let xb = e.clientX - bound.left
     // let yb = e.clientY - bound.top
 
@@ -193,7 +159,7 @@ export default () => {
     let yj2 = k * (yj - yd2) + yd2
 
     function precise(x) {
-      return Number.parseFloat(x).toFixed(5)
+      return Number.parseFloat(x).toFixed(1)
     }
 
     setCoo({
@@ -237,15 +203,6 @@ export default () => {
     e.preventDefault()
     show === 0 ? setShow(1) : setShow(0)
   }
-  // const handleCteChange = e => {
-  //   e.preventDefault()
-  //   setCte({
-  //     ...cte,
-  //     cte: {
-  //       phib: 10,
-  //     },
-  //   })
-  // }
 
   return (
     <div className="App">
@@ -260,70 +217,15 @@ export default () => {
 
       {/*<Particle coo={coo} />
   <BlobNode coo={coo} show={show} stop={stop} time={time} /> */}
-      <svg
-        // ref={svgRef}
-        viewBox="0 0 1000 700"
-        height="700"
-        width="1000"
-        // onMouseMove={e => handleChange(e)}
-        transform="matrix(1 0 0 -1 0 0)"
-      >
-        <defs>
-          <filter id="goo">
-            <feGaussianBlur
-              in="SourceGraphic"
-              result="blur"
-              stdDeviation="10"
-            />
-            <feColorMatrix
-              in="blur"
-              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 30 -7"
-            />
-          </filter>
-        </defs>
-
-        <g filter="url(#goo)">
-          <circle
-            className="A"
-            cx={coo.A.x}
-            cy={coo.A.y}
-            r={coo.R.ra}
-            fill="url(#gradA)"
-            // filter="url(#redShadow)"
-            opacity="1"
-          >
-            {/* <animateTransform
-        attributeName="transform"
-        begin="0s"
-        dur="20s"
-        type="rotate"
-        from={`0 ${coo.A.x} ${coo.A.y}`}
-        to={`360 ${coo.A.x} ${coo.A.y}`}
-        repeatCount="indefinite"
-      /> */}
-          </circle>
-
-          {children.map((c, i) => {
-            // console.log(c.color.p)
-            return (
-              <g>
-                <BlobChild
-                  key={i}
-                  phi0={c.phi0}
-                  phib={c.phib}
-                  hxb={c.hxb}
-                  show={c.show}
-                  time={time}
-                  color={c.color}
-                  logoURL={c.logoURL}
-                />
-              </g>
-            )
-          })}
-        </g>
-        {/*<NodeLogo coo={coo} />*/}
-        <ReactLogo coo={coo} />
-      </svg>
+      <BlobChild
+        coo={coo}
+        show={show}
+        stop={stop}
+        time={time}
+        pColor={'#61DAFB'}
+        sColor={'#0084FF'}
+        logoURL={'./Logos/ReactLogo.js'}
+      />
     </div>
   )
 }

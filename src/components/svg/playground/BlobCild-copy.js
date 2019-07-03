@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
-import ReactLogo from './Logos/ReactLogo'
+import ReactLogo from '../Logos/ReactLogo'
 
-export default ({ coo, show, stop, time, theta0 }) => {
+export default ({ coo, show, stop, time, theta0, pColor, sColor, logoURL }) => {
   let svgRef = useRef()
   // setPhi0(100)
   return (
     <svg
       ref={svgRef}
+
       // viewBox="0 0 1000 700"
       // height="700"
       // width="1000"
@@ -31,11 +32,11 @@ export default ({ coo, show, stop, time, theta0 }) => {
           fx="50%"
           fy="50%"
           r="77%"
-          id="radialGradient-2"
+          id="gradChild"
         >
-          <stop stopColor="#0084FF" offset="0%" />
-          <stop stopColor="#61DAFB" offset="60%" />
-          <stop stopColor="#61DAFB" offset="100%" />
+          <stop stopColor={sColor} offset="0%" />
+          <stop stopColor={pColor} offset="60%" />
+          <stop stopColor={pColor} offset="100%" />
         </radialGradient>
         <radialGradient
           cx="50%"
@@ -43,12 +44,12 @@ export default ({ coo, show, stop, time, theta0 }) => {
           fx="50%"
           fy="50%"
           r="77%"
-          id="s"
+          id="glue"
           // gradientTransform="translate(53, 2)"
         >
           <stop stopColor="#C86DD7" offset="0%" />
           <stop stopColor="#8c4ef8" offset="50%" />
-          <stop stopColor="#61DAFB" offset="100%" />
+          <stop stopColor={pColor} offset="100%" />
         </radialGradient>
         <filter
           id="B"
@@ -62,7 +63,7 @@ export default ({ coo, show, stop, time, theta0 }) => {
             dx="0"
             dy="0"
             stdDeviation="10 10"
-            flood-color="#61DAFB"
+            flood-color={pColor}
             flood-opacity="0"
           />
         </filter>
@@ -109,7 +110,7 @@ export default ({ coo, show, stop, time, theta0 }) => {
             `}
               // stroke="#fff00f"
               // fill="url(#radialGradient-sticky)"
-              fill="url(#s)"
+              fill="url(#glue)"
             />
           )}
           <circle
@@ -137,23 +138,24 @@ export default ({ coo, show, stop, time, theta0 }) => {
             cx={coo.B.x}
             cy={coo.B.y}
             r={coo.R.rb}
+            opacity={show}
             // fill="#fa8072"
             // opacity="0"
-            fill="url(#radialGradient-1)"
+            fill="url(#gradChild)"
           />
-          <g x={coo.B.x} y={coo.B.y}>
+          {/* <g x={coo.B.x} y={coo.B.y}>
             <circle
               className="underB"
               cx={coo.B.x}
               cy={coo.B.y}
               r={coo.R.rb}
               // fill="#61DAFB"
-              fill="url(#radialGradient-2)"
+              fill="url(#gradChild)"
               // opacity={coo.k}
               // transform="translate(100,100) scale(0.07,0.07) "
               filter="url(#B)"
             />
-          </g>
+        </g> */}
         </g>
         {/*<Tangents coo={coo} show={show} />*/}
         <ReactLogo coo={coo} />

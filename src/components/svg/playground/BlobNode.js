@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ReactLogo from './Logos/ReactLogo'
+import NodeLogo from '../Logos/NodeLogo'
 
 const begining = Date.now()
 
@@ -40,103 +40,25 @@ export default ({ show, stop }) => {
     J2: { x: 0, y: 0 },
   })
 
-  const handleChange = e => {
-    //   e.preventDefault()
-    //   let bound = svgRef.current.getBoundingClientRect()
-    //   // let hx = 350
-    //   // let hy = 200
-    //   // let phi = 0.15
-    //   let phi2 = 0.25 * time
-    //   // let phi0 = 100
-    //   // let phi0 = 10
-    //   let xa = 600 + 10 * Math.cos(phi2 + 10)
-    //   let ya = 400 + 30 * Math.sin(phi2 + 70)
-    //   // let xb = xa + hx * Math.cos(phi * time + phi0)
-    //   // let yb = ya + hy * Math.sin(phi * time + phi0)
-    //   let xb = e.clientX - bound.left
-    //   let yb = e.clientY - bound.top
-    //   let ra = coo.R.ra
-    //   let rb = coo.R.rb
-    //   let X = coo.B.x - coo.A.x
-    //   let Y = coo.B.y - coo.A.y
-    //   let theta = Math.atan2(Y, X)
-    //   let H = Math.sqrt(X ** 2 + Y ** 2)
-    //   let rho = 1 * Math.asin(rb / H) + 0.1
-    //   let tho = 1 * Math.asin(ra / H) + 0.2
-    //   let k = (0.003 * H) ** 1
-    //   let xa1 = xa + ra * Math.sin(theta)
-    //   let ya1 = ya - ra * Math.cos(theta)
-    //   let xa2 = xa - ra * Math.sin(theta)
-    //   let ya2 = ya + ra * Math.cos(theta)
-    //   let xa3 = xa + ra * Math.cos(theta)
-    //   let ya3 = ya + ra * Math.sin(theta)
-    //   let xb1 = xb + rb * Math.sin(theta)
-    //   let yb1 = yb - rb * Math.cos(theta)
-    //   let xb2 = xb - rb * Math.sin(theta)
-    //   let yb2 = yb + rb * Math.cos(theta)
-    //   let xb3 = xb - rb * Math.cos(theta)
-    //   let yb3 = yb - rb * Math.sin(theta)
-    //   let xc1 = xa + ra * Math.cos(theta - rho)
-    //   let yc1 = ya + ra * Math.sin(theta - rho)
-    //   let xc2 = xa + ra * Math.cos(rho + theta)
-    //   let yc2 = ya + ra * Math.sin(rho + theta)
-    //   let xd1 = xb - rb * Math.cos(theta + tho)
-    //   let yd1 = yb - rb * Math.sin(theta + tho)
-    //   let xd2 = xb - rb * Math.cos(theta - tho)
-    //   let yd2 = yb - rb * Math.sin(theta - tho)
-    //   let xi = xa + (ra * Math.cos(theta)) / Math.cos(rho)
-    //   let yi = ya + (ra * Math.sin(theta)) / Math.cos(rho)
-    //   let xj = xb - (rb * Math.cos(theta)) / Math.cos(tho)
-    //   let yj = yb - (rb * Math.sin(theta)) / Math.cos(tho)
-    //   let xi1 = k * (xi - xc1) + xc1
-    //   let yi1 = k * (yi - yc1) + yc1
-    //   let xi2 = k * (xi - xc2) + xc2
-    //   let yi2 = k * (yi - yc2) + yc2
-    //   let xj1 = k * (xj - xd1) + xd1
-    //   let yj1 = k * (yj - yd1) + yd1
-    //   let xj2 = k * (xj - xd2) + xd2
-    //   let yj2 = k * (yj - yd2) + yd2
-    //   function precise(x) {
-    //     return Number.parseFloat(x).toFixed(1)
-    //   }
-    //   setCoo({
-    //     ...coo,
-    //     k: precise(k),
-    //     H: H,
-    //     A: { x: precise(xa), y: precise(ya) },
-    //     B: { x: precise(xb), y: precise(yb) },
-    //     A1: { x: precise(xa1), y: precise(ya1) },
-    //     A2: { x: precise(xa2), y: precise(ya2) },
-    //     A3: { x: precise(xa3), y: precise(ya3) },
-    //     B1: { x: precise(xb1), y: precise(yb1) },
-    //     B2: { x: precise(xb2), y: precise(yb2) },
-    //     B3: { x: precise(xb3), y: precise(yb3) },
-    //     C1: { x: precise(xc1), y: precise(yc1) },
-    //     C2: { x: precise(xc2), y: precise(yc2) },
-    //     D1: { x: precise(xd1), y: precise(yd1) },
-    //     D2: { x: precise(xd2), y: precise(yd2) },
-    //     I: { x: precise(xi), y: precise(yi) },
-    //     J: { x: precise(xj), y: precise(yj) },
-    //     I1: { x: precise(xi1), y: precise(yi1) },
-    //     I2: { x: precise(xi2), y: precise(yi2) },
-    //     J1: { x: precise(xj1), y: precise(yj1) },
-    //     J2: { x: precise(xj2), y: precise(yj2) },
-    //   })
-  }
-
   useEffect(() => {
+    // const handleChange = e => {
+    // e.preventDefault()
+    // let bound = svgRef.current.getBoundingClientRect()
+
     let hx = 350
     let hy = 200
-    let phi = 0.15
+    let phi = 0.25
     let phi2 = 0.25 * time
-    let phi0 = 100
-    // let phi0 = 10
+    // let phi0 = 100
+    let phi0 = 10
 
-    let xa = 600 + 10 * Math.cos(phi2 + 10)
+    let xa = 900 + 10 * Math.cos(phi2 + 10)
     let ya = 400 + 30 * Math.sin(phi2 + 70)
 
-    let xb = xa + hx * Math.cos(phi * time + phi0)
+    let xb = xa + hx * Math.cos(phi * time + phi0) + Math.exp(0.1 * time)
     let yb = ya + hy * Math.sin(phi * time + phi0)
+    // let xb = xa + hx * Math.cos(phi * time + phi0)
+    // let yb = ya + hy * Math.sin(phi * time + phi0)
     // let xb = e.clientX - bound.left
     // let yb = e.clientY - bound.top
 
@@ -241,48 +163,67 @@ export default ({ show, stop }) => {
   return (
     <svg
       ref={svgRef}
-      viewBox="0 0 1000 700"
-      height="700"
-      width="1000"
+      // viewBox="0 0 1000 700"
+      // height="700"
+      // width="1000"
       // onMouseMove={e => handleChange(e)}
-      transform="matrix(1 0 0 1 0 0)"
+      // transform="matrix(1 0 0 -1 0 0)"
     >
       <defs>
-        <radialGradient
-          cx="50%"
-          cy="50%"
-          fx="50%"
-          fy="50%"
-          r="77%"
-          id="radialGradient-1"
-        >
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="77%" id="g1">
+          <stop stopColor="#539E43" offset="0%">
+            <animate
+              attributeName="stop-color"
+              values="#C86DD7; #00ff00; #00ff00; #C86DD7"
+              dur="3s"
+              repeatCount="indefinite"
+            />
+          </stop>
+          <stop stopColor="#00ff00" offset="100%" />
+        </radialGradient>
+
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="77%" id="base">
           <stop stopColor="#C86DD7" offset="0%" />
           <stop stopColor="#877AFF" offset="100%" />
         </radialGradient>
+
         <radialGradient
+          id="g3"
           cx="50%"
           cy="50%"
           fx="50%"
           fy="50%"
           r="77%"
-          id="radialGradient-2"
-        >
-          <stop stopColor="#C86DD7" offset="0%" />
-          <stop stopColor="#539E43" offset="100%" />
-        </radialGradient>
-        <radialGradient
-          cx="50%"
-          cy="50%"
-          fx="50%"
-          fy="50%"
-          r="77%"
-          id="radialGradient-sticky"
-          // gradientTransform="translate(53, 2)"
+          gradientTransform={`rotate(${coo.theta})`}
         >
           <stop stopColor="#C86DD7" offset="0%" />
           <stop stopColor="#877AFF" offset="50%" />
-          <stop stopColor="#539E43" offset="100%" />
+          <stop stopColor="#00ff00" offset="100%" />
         </radialGradient>
+
+        <linearGradient
+          gradientTransform="rotate(-50 0 0)"
+          id="lg1"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+          spreadMethod="pad"
+          // gradientUnits="userSpaceOnUse"
+        >
+          {/* <stop offset="50%" stop-color="#00cc00" stop-opacity="1">
+						<animate
+							attributeName="stop-color"
+							values="lightblue;orange;purple;purple;black;purple;purple;blue;lightblue"
+							dur="14s"
+							repeatCount="indefinite"
+						/>
+					</stop> */}
+          <stop stopColor="#C86DD7" offset="0%" />
+          <stop stopColor="#C86DD7" offset="49%" />
+          <stop offset="60%" stop-color="#006600" stop-opacity="1" />
+        </linearGradient>
+
         <filter
           id="B"
           x="0"
@@ -299,7 +240,7 @@ export default ({ show, stop }) => {
             flood-opacity="0.2"
           />
         </filter>
-        &
+
         <filter
           id="redShadow"
           x="0"
@@ -316,17 +257,9 @@ export default ({ show, stop }) => {
             floodOpacity={0.2 + Math.cos(0.2 * time) / 4}
           />
         </filter>
-        &
-        <filter id="goo">
-          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="20" />
-          <feColorMatrix
-            in="blur"
-            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 30 -7"
-          />
-        </filter>
       </defs>
 
-      <g filter="url(#goo)">
+      <g>
         {/* <circle
 					className="drop"
 					cx={coo.A.x}
@@ -343,24 +276,15 @@ export default ({ show, stop }) => {
 					/>
 				</circle> */}
 
-        <circle
-          className="A"
-          cx={coo.A.x}
-          cy={coo.A.y}
-          r={coo.R.ra}
-          fill="#877AFF"
-          // filter="url(#redShadow)"
-          // opacity="0.98"
-        />
+        {/* <circle
+					className="B"
+					cx={coo.B.x}
+					cy={coo.B.y}
+					r={coo.R.rb}
+					// fill="#fa8072" />
+					fill="url(#base)"
+				/> */}
 
-        <circle
-          className="B"
-          cx={coo.B.x}
-          cy={coo.B.y}
-          r={coo.R.rb}
-          // fill="#fa8072" />
-          fill="#E535AB"
-        />
         <g x={coo.B.x} y={coo.B.y}>
           <circle
             className="underB"
@@ -368,12 +292,12 @@ export default ({ show, stop }) => {
             cy={coo.B.y}
             r={coo.R.rb}
             // fill="#61DAFB"
-            fill="#E535AB"
+            fill="url(#g1)"
             // opacity={coo.k}
             // transform="translate(100,100) scale(0.07,0.07) "
             // filter="url(#B)"
           />
-          <ReactLogo coo={coo} />
+          <NodeLogo coo={coo} />
         </g>
 
         {/* <img className="react-logo" src={reactLogo} alt="logo" /> */}
@@ -388,11 +312,13 @@ export default ({ show, stop }) => {
 								C ${coo.J1.x} ${coo.J1.y} ${coo.I1.x} ${coo.I1.y} ${coo.C1.x} ${coo.C1.y}
 				    	`}
             // stroke="#fff00f"
-            fill="#877AFF"
+            fill="url(#lg1)"
+            // opacity={coo.k}
+            // fill="red"
           />
         )}
         {/* <Moving coo={coo} /> */}
-        <g opacity={(show = 0)}>
+        <g opacity={show}>
           <path
             className="C2I2"
             d={`M ${coo.C2.x} ${coo.C2.y} 
