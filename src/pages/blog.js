@@ -23,7 +23,7 @@ export default () => {
       }
     }
   `)
-  console.log('data', JSON.stringify(data, null, 4))
+  // console.log('data', JSON.stringify(data, null, 4))
 
   return (
     <Layout>
