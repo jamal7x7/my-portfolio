@@ -126,6 +126,7 @@ This is called **lexical scope** (or static scope), it's when the available vari
 > Lexical environment === [[scopes]]
 
 <br/>
+
 ### Weird edge cases
 
 ```js
@@ -183,6 +184,70 @@ if (true) {
 
 y // ReferenceError: y is not defined !!!
 z // ReferenceError: z is not defined !!!
+```
+
+### polution of the global namespace
+
+Is when we declare too much variables in the global scope, which is something to avoid because:
+
+- we have limited memory that get overflowed over leakage of global variables.
+- and even if we declare few global variables, we risk to overwrite our variables (_variable collesion_)
+
+## IIFE
+
+So global variables are bad,they can cause a lot of issues , how can we minimize them?
+one of the tricks used by developers is **IIFE**: _immediately invoked function expression_ that look like this:
+
+```js
+;(function() {
+  // do something
+})()
+```
+
+this is a design pattern used by a lot of libraries like jQuery and backbone...
+the idea is to place all the code inside the function local scope to avoid any name space collesions;
+how does an IIFE work:
+
+- we use a function expression not a function declaration
+- we create an anonumous function.
+- and we immidiately invoke that function
+
+one way to use this technic is this pattern:
+
+```js
+var script = (function() {
+  function f() {
+    return 10
+  }
+  return {
+    f: f,
+  }
+})()
+
+function f() {
+  return 20
+}
+
+f() //20
+script.f() //10
+```
+
+A practical/fun exemple with jQuery:
+
+```js
+
+<h1>Big Head</h1>
+<script src='jQuery cdn path'></script>
+<script>
+var script = (function(@) {
+    @.click(function(){
+      @.hide()
+    }
+  }
+  // we substitute the jQuery dollar sign '$' with '@'
+})(jQuery)
+
+</script>
 ```
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
