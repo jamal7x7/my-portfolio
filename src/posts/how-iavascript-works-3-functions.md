@@ -195,8 +195,8 @@ Is when we declare too much variables in the global scope, which is something to
 
 ## IIFE
 
-So global variables are bad,they can cause a lot of issues , how can we minimize them?
-one of the tricks used by developers is **IIFE**: _immediately invoked function expression_ that look like this:
+So, global variables are bad,they can cause a lot of issues , how can we minimize them?
+one of the tricks used by developers is **IIFE**: _immediately invoked function expression_, it look like this:
 
 ```js
 ;(function() {
@@ -204,13 +204,13 @@ one of the tricks used by developers is **IIFE**: _immediately invoked function 
 })()
 ```
 
-this is a design pattern used by a lot of libraries like jQuery and backbone...
+this is a design pattern used by a lot of libraries like jQuery and backbone (before es6 modules come out)...
 the idea is to place all the code inside the function local scope to avoid any name space collesions;
 how does an IIFE work:
 
-- we use a function expression not a function declaration
-- we create an anonumous function.
-- and we immidiately invoke that function
+- it use a function expression not a function declaration.
+- it create an anonumous function.
+- and it get immidiately invoke( hence the '**()**' at the end or before the last '**)**' ).
 
 one way to use this technic is this pattern:
 
@@ -237,7 +237,7 @@ A practical/fun exemple with jQuery:
 ```js
 
 <h1>Big Head</h1>
-<script src='jQuery cdn path'></script>
+<script src='jQuery_cdn_path'></script>
 <script>
 var script = (function(@) {
     @.click(function(){
@@ -250,6 +250,8 @@ var script = (function(@) {
 </script>
 ```
 
+_IIFE_ enables us to attach private data to a function and create a fresh environement for us so we don't polute our global execution context.
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
@@ -257,11 +259,3 @@ var script = (function(@) {
 resource1: 'https://tylermcginnis.com/javascript-visualizer/'
 resource2: 'http://pythontutor.com/javascript.html#mode=edit'
 resource2: 'http://int3.github.io/metajs/'
-
-```
-
-```
-
-```
-
-```
