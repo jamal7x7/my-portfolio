@@ -117,7 +117,7 @@ function log() {
   printNumber()
 }
 
-log() // Prints 10 no 20 !?!
+log() // Prints 10 not 20 !?!
 ```
 
 This is called **lexical scope** (or static scope), it's when the available variables are the ones that are accessible where the function is _written_ or _defined_ not where it's _called_.
