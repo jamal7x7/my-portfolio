@@ -69,7 +69,7 @@ var ReingnTwo = {
 }
 ```
 
-Or simply we can use...'what we dont speak of!'
+Or simply we can use...'this'!
 
 ```js
 var realmOne = {
@@ -229,7 +229,7 @@ country()
 
 the execution follow this order `[window.[country()] [window.[city()]]`, what's in the left of the dot? -window -window it is!
 
-for `sayName()` function, it is called after `citize.` so _'this'_ in it will refer to citizen
+for `sayName()` function, it is called after `citizen.` so _'this'_ in it will refer to citizen
 
 ### important remark
 
@@ -250,7 +250,7 @@ var shape = {
 
 shape.saySurface()
 //100 m^2
-//0 foot^2' !!!
+//0 foot^2' !!! <- this === window
 ```
 
 we can remedy this pitfal in 3 ways

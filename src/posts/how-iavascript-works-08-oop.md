@@ -220,13 +220,78 @@ Toy.prototype // { speak }
 
 _prototype_ allow us to add functonality ( speak() ...) to our constructor later on as we need them, and every instence created from this constractor has access to it as well, remember _prototype inheretence_.
 
-So did we reach our goal, sure, we did simplify it since last time, but the style and the over all shape of our code is a bit ugly(well, it's a matter of test) and brain-power demanding, not everyone understand how inheretence works in javascript, it's a matter of love-it or hate-it stuation, can we do better?
+> P.S: technicaly in javascript, everything is an object. exept null and undefined we have a constructor function for everything so we have method we can use.
+
+So did we reach our goal, sure, we did simplify it since last time, but the style and the over all shape of our code is not that pretty (well, it's a matter of test) and brain-power demanding, not everyone understand how inheretence and _this_ works in javascript, can we do better?
 yes, we can! by :
 
+## Classes
+
+OOP was created with _Class_ idea in mind, javascript is cappable of OOP, as we did see, but using the prototype aproach, lot of people didn't like the prototype way of doing thier OOP, so TC39 commitee gathered and finally granted the _class_ keyword to exist in ES6 release, what are these classes:
+
+> Classe : is a blueprint of the object (proprties and methods) we want to create.
+
+we can simplify the above _constructor function_ to look like this:
+
+```js
+class Toy {
+  // a class start with a capital letter
+
+  constructor(shape, color) {
+    this.shape = shape
+    this.color = color
+  }
+
+  speak() {
+    console.log(` I am a ${this.color} ${this.shape}`)
+  }
+}
+
+const redCube = new Toy('cube', 'red') // called 'instanciation'
+redCube.speak() // 'I am a red cube'
+
+const yellowPyramid = new Toy('pyramid', 'yellow')
+redCube.speak() // 'I am a yellow pyramid'
+```
+
+classes work like a container of all your functionality, properties, methods, states, actions ... all together in one place, that's the benifit of using _classes_ over _prototypes_.
+
+with classes we create instances wich are objects with predefined structure, created according to our class blueprint.
+
+for exemple: `redCub` is an instance of `Toy`, also `yellowPyramid` is an instance of `Toy`
+
+```js
+redCube instanceof Toy // true
+yelloPyramid instanceof Toy // true
+```
+
+Under the hood classes in javascript uses prototype inheretence, so they are just 'syntactic suguar` (they don't work like "true" classes in other languages).
+
+Historical fact: why javascript didn't have classes from the beginning, well According to Eich,
+
+> If I had done classes in JavaScript back in May 1995, I would have been told that it was too much like Java or that JavaScript was competing with Java … I was under marketing orders to make it look like Java but not make it too big for its britches … [it] needed to be a silly little brother language.
+
+so Brandon was prohibited to create a sophisticated and pro language like Java , but he end up with a language so flixible that you can project your own style and patterns on it, it can do what ever you want with it, and later on, with gradual improvement, allowed by it's multi-paradigm approach,it become so strong and so powerful it throws the initial restrictions to shame!
+
+## this, again
+
+now we have 4 cases to know which objects _this_ refers to:
+
+1. _new_ binding
+   with classes and constructors
+
+2. implicit binding
+   the most obvious
+
+3. explicit binding
+   using `bind(), apply() and call()`
+
+4. arrow function
+   arrow functions are lexically scoped
+
 <br/>
 <br/>
 <br/>
- 
 ---
 
-[more on Prototypes](https://itnext.io/understanding-prototypes-in-javascript-e466244da086)
+[interview with Eick](https://www.computer.org/csdl/magazine/co/2012/02/mco2012020007/13rRUy08MzA)
