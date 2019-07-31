@@ -4,11 +4,17 @@ date: '2019-07-28'
 view-source: 'https://tylermcginnis.com/javascript-visualizer/'
 ---
 
-# Inheritance
+# Object Oriented Programming
 
 [//]: # '## Content'
 
-1. 2. 3. 4.
+1. in persuit of Perfect code
+
+2. from procedural to OOP
+
+3. Classes
+
+4. OOP pillars
 
 ---
 
@@ -18,7 +24,7 @@ view-source: 'https://tylermcginnis.com/javascript-visualizer/'
 
 There are two programming paradigm: Object Oriented and functional Programming, javascript can do both,
 
-## chassing the perfect code
+## in persuit of the perfect code
 
 Principles for a good code using OOP or FP:
 
@@ -278,16 +284,30 @@ so Brandon was prohibited to create a sophisticated and pro language like Java ,
 now we have 4 cases to know which objects _this_ refers to:
 
 1. _new_ binding
-   with classes and constructors
+   with classes and constructors, refers to the instance created.
 
 2. implicit binding
-   the most obvious
+   the most obvious,refers to the object created.
 
 3. explicit binding
-   using `bind(), apply() and call()`
+   using `bind(), apply() and call()`, refers to what's inside the _()_.
 
 4. arrow function
    arrow functions are lexically scoped
+
+## OOP Pillars
+
+1. Encapsilation (Grouping of information)
+   from procudural programming with no structure to organising code in small unit, modeling the real world, helping maintainability, security and reusability.
+
+2. Abstraction (Hiding of information)
+   hiding complexity and providing simple interfaces, rather than learning all about _how_ prototype inheretence works and prototype this prototype that, all you have to know to begin creating your application, is _what_ do want to do with your data (by organising it into classes and subclasses), and let the language take care of the implementation.
+
+3. Inheritence (Sharing of information)
+   eliminating redundant code, for performance and reusability.
+
+4. Polymorphism (Redifining of information)
+   dynamicaly call the same method on defferent objects, customizing it to its environment.
 
 <br/>
 <br/>
