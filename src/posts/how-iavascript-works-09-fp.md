@@ -32,14 +32,262 @@ so for Church a function is a black box (that you are not allowed to look inside
 
 ```js
 
-x -> function -> x + 1
+x -> function -> x + 1 // in lambda calculus notation : λx.x+1
 
-x -> y -> function -> x + y
+x -> y -> function -> x + y // λx.λy.x+y
 
 ```
 
-the second fondamental thing is that these functions are pur, meaning: they have no internal state, no hidden information that we can use (contrary to Turing machines that has internal state)
+the second fondamental thing is that these functions are pure, meaning: they have no internal state, no hidden information that we can use (contrary to Turing machines that have internal state)
 
-FP become very popular in recent years,it works very well with _distrubuted computing_, where there is multiple machines interacting with data, and also _parallelism_, wich is machines working on the some data at the same time
+FP become very popular in recent years,it offer 2 major benifits :
+
+- _distrubuted computing_: multiple machines interacting with data
+
+- _parallelism_: machines working on the some data at the same time
 
 ##
+
+functional programming is all about separation of concerns, like OOP, organise code in little chunks, and every chank is doing one thing only.
+
+when we use OOP we devide our code into classes containing data and methods of a particular notion, in FP we separate data and functions,we dont group them in one thing, tere is no classes or method belonging to an object, in FP the emphasis is on indepondant, first class citezen functions. this approach allow us to have all the benifits and big goals of an OOP, clear, DRY, extendable, efficient ...
+
+the main pillar of FP is : _Pure functions_
+
+Exercise
+
+```js
+// Amazon shopping
+
+//Implement a cart feature:
+// 1. Add items to cart.
+// 2. Add 3% tax to item in cart
+// 3. Buy item: cart --> purchases
+// 4. Empty cart
+
+//Bonus:
+// accept refunds.
+// Track user history.
+
+const user = {
+  name: 'Kim',
+  active: true,
+  balance: 100,
+  history: [],
+  cart: [],
+  purchases: [],
+}
+
+const items = [
+  {
+    name: 'a',
+    price: 100,
+  },
+  {
+    name: 'b',
+    price: 100,
+  },
+  {
+    name: 'c',
+    price: 100,
+  },
+]
+
+const nameToItem = (name, arr) => {
+  let item
+  arr.map(v => {
+    //console.log(v.name)
+    if (v.name === name) {
+      item = v
+      //console.log(v.name === name)
+    }
+  })
+
+  return item
+}
+
+//const myitem = nameToItem('a', items)
+//console.log(myitem)
+
+const isActive = () => {
+  if (!user.active) throw new Error('user not active')
+}
+
+const taxing = (item, tax) =>
+  (item = { ...item, price: item.price * (1 + tax) })
+
+const addItemToCart = function(name) {
+  item = nameToItem(name, items)
+  isActive()
+  item = taxing(item, 0.03)
+
+  user.cart = [...user.cart, item]
+
+  user.history = [
+    ...user.history,
+    {
+      item: item.name,
+      action: 'added to cart',
+      price: item.price,
+      balance: user.balance,
+      date: Date.now(),
+    },
+  ]
+}
+
+const buyItem = function(name) {
+  isActive()
+  item = nameToItem(name, user.cart)
+  if (user.cart.includes(item)) {
+    user.purchases = [...user.purchases, item]
+    user.cart = user.cart.filter((v, i) => i !== user.cart.indexOf(item))
+    user.balance -= item.price
+    console.log('item ' + item.name + ' purchased!')
+    user.history = [
+      ...user.history,
+      {
+        item: item.name,
+        action: 'new purchase!',
+        date: Date.now(),
+        price: item.price,
+        balance: user.balance,
+      },
+    ]
+  } else {
+    console.log('item not in your cart')
+    user.history = [
+      ...user.history,
+      {
+        item: item.name,
+        action: 'trying to purchase item not in cart!',
+        date: Date.now(),
+        price: item.price,
+        balance: user.balance,
+      },
+    ]
+  }
+}
+
+const refund = function(name) {
+  isActive()
+  item = nameToItem(name, user.purchases)
+  if (user.purchases.includes(item)) {
+    user.cart = [...user.cart, item]
+    user.purchases = user.purchases.filter(
+      (v, i) => i !== user.purchases.indexOf(item)
+    )
+    user.balance += item.price
+    console.log('item ' + item.name + ' refunded!')
+    user.history = [
+      ...user.history,
+      {
+        item: item.name,
+        action: 'refund!',
+        date: Date.now(),
+        price: item.price,
+        balance: user.balance,
+      },
+    ]
+  } else {
+    console.log('item not purchased')
+  }
+}
+
+const emptyCart = () => {
+  isActive()
+  user.cart = []
+}
+
+addItemToCart('a')
+console.log('cart :', user.cart)
+
+buyItem('a')
+//buyItem(user.cart[1])
+//addItemToCart(items[2])
+//buyItem(user.cart[1])
+
+//console.log('purchases :', user.purchases)
+//console.log('cart :', user.cart)
+
+refund('a')
+
+console.log('histroy :', user.history)
+
+//console.log('purchases :', user.purchases)
+```
+
+## Pure Functions
+
+two condition for a function to be _pure_:
+
+1. Given the same input, it return the same output.
+   => the function is deterministic.
+
+2. No side effect: the function does not modify anything outside of itself.
+   => referential transparency.
+
+Can we write our regular code with only pure functions? well, our code must interact and communicate with the outside world, that's a side effect right there, the idea is not to make all our functions 100% pure but to minimize side effects, to organize code to a part where functions are totally pure and other part where functions can have side effects, so that when we have a bug we know wich portion of the code to inspect and debug.
+
+> The goal of FP is to isolate _impure_ function, functions with side effects.
+
+How to build the perfect function in FP then?
+
+A perfect function in FP do:
+
+- One task
+
+- return statement
+
+- Pure
+
+- No shared state
+
+- Immutable state
+
+- Composable
+
+- Predictable
+
+## Idempotence
+
+Idempotence == deterministic && !(referential transparency)
+
+We have Idempotence when our function is deterministic(same iput -> same output) but with side effect( communication with the outside world)
+
+```js
+function bad(n) {
+  return n * Math.random()
+}
+
+bad(10) // rundom value with each call
+
+function log(n) {
+  console.log(n)
+}
+
+log(10) // 10 but loged outside of the function to the browser console
+
+Math.abs(Math.abs(-10)) // 10  <-  is immutable by multiple recursions (|||...|x|...||| = |x|)
+```
+
+even with side effect, Idempotence is valuable because its predictible.
+
+## Imperative vs Declarative
+
+Imperative: what to do & how to do it
+Declarative: what to do without telling how to do it
+
+<--- humains ------------------------------------------------ Machines --->
+<--- Hight level language ------------------------------- Machine code --->
+<--- Declarative ------------------------------------------ Imperative --->
+
+```js
+let arr = new Array(1000).fill(7)
+
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i] * i)
+}
+// is more imperative than simply
+
+arr.forEach((e, i) => console.log(e * i))
+```

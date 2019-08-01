@@ -29,7 +29,7 @@ There are two programming paradigm: Object Oriented and functional Programming, 
 Principles for a good code using OOP or FP:
 
 1. Clear & Understandable
-2. Easy to extend
+2. Easy to extend, adding features and functionality
 3. Easy to maintain
 4. Memory efficient
 5. DRY
@@ -38,9 +38,9 @@ from machine code to procudural style programing (step-by-step programing) to OO
 
 ### OOP vs FP
 
-Data + behaviors(what the programme can do) are the two principal component of every programme, to organise this program we have two approches:
+Data + behaviors(what the programme can do) are the two principal component of every programme, to organise this program we have two approches or two paradigms:
 
-OOP : fusing data + behaviors in a single location called _object_(Java)
+OOP : fusing ,packaging and bundling coherent data + behaviors in a single location called _object_(Java), so we wont waist time and energy chasing and hunting down the wright functionality or the desired data sprinkeled here and there in a multitude of places.
 FP: data and behaviors should be keept separed for clearity (scheme)
 
 lucky for us we can do both using javascript(java + scheme), since it is a multi-paradigm programming language,so based in our problem we can choose the apropriete technic to write a good solution.
