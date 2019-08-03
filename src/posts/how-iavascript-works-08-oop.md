@@ -40,7 +40,7 @@ from machine code to procudural style programing (step-by-step programing) to OO
 
 Data + behaviors(what the programme can do) are the two principal component of every programme, to organise this program we have two approches or two paradigms:
 
-OOP : fusing ,packaging and bundling coherent data + behaviors in a single location called _object_(Java), so we wont waist time and energy chasing and hunting down the wright functionality or the desired data sprinkeled here and there in a multitude of places.
+OOP : fusing ,packaging, bundling coherent data + behaviors in a single location called _object_(Java), so we wont waist time and energy chasing and hunting down the wright functionality or the desired data sprinkeled here and there in a multitude of places.
 FP: data and behaviors should be keept separed for clearity (scheme)
 
 lucky for us we can do both using javascript(java + scheme), since it is a multi-paradigm programming language,so based in our problem we can choose the apropriete technic to write a good solution.

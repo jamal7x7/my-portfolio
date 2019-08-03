@@ -265,7 +265,7 @@ function log(n) {
   console.log(n)
 }
 
-log(10) // 10 but loged outside of the function to the browser console
+log(20) // 20 but loged outside of the function to the browser console
 
 Math.abs(Math.abs(-10)) // 10  <-  is immutable by multiple recursions (|||...|x|...||| = |x|)
 ```
@@ -281,13 +281,115 @@ Declarative: what to do without telling how to do it
 <--- Hight level language ------------------------------- Machine code --->
 <--- Declarative ------------------------------------------ Imperative --->
 
+Exemples:
+
 ```js
-let arr = new Array(1000).fill(7)
+let arr = new Array(1000).fill('')
 
 for (let i = 0; i < arr.length; i++) {
-  console.log(arr[i] * i)
+  console.log(i)
 }
 // is more imperative than simply
 
-arr.forEach((e, i) => console.log(e * i))
+arr.forEach((e, i) => console.log(i))
+```
+
+jQuery is more imperative than React
+
+## Immutability
+
+Immutability = not changing original data (or preserve original state)
+
+change occures only on cloned data, not on the original data itself.
+
+```js
+const obj = { color: 'red' }
+
+const obj2 = obj
+obj2.color = 'blue'
+
+console.log(obj) // { color: 'blue'} <- we didn't preserve the immutability of our given data
+```
+
+```js
+const obj = { color: 'red' }
+
+function clone(object) {
+  return { ...object }
+}
+
+const obj2 = clone(obj)
+obj2.color = 'blue'
+
+console.log(obj) // { color: 'red'} <- we did preserve the immutability of our given data
+```
+
+yes, but if we have a lot of big heavy object, cloning them every time we want to update a property is not memory efficient, that's true but there are ways of diminishing the effect of this inconveniency, by _structural sharing_ for exemple wich is cloning only the updated properties and sharing the rest of the colossal object, another thing is that memory in recent years becomes very cheap compared to what was before and its a fair price to pay for the benifits of preserving data immutability in FP.
+
+## closure and functional programming
+
+> we can use closure to access private ,sealed down, immutable data.
+
+as long as our returned function stay pure and dont mess up with the original data.
+
+```js
+
+const f = function() {
+  superImportantTresorData = {
+    coordinate: {
+      x: 100,
+      y: 200
+    },
+    value: '100 Million $'
+  }
+
+  ruturn function () {
+    return superImportantTresorData.coordinate
+  }
+}
+
+const getCoordinate = f()
+getCoordinate() //{ x: 100, y: 200 }
+
+```
+
+We can't change data inside the function `f()` from the outside no matter what we do. closure is used a lot in FP because it enforces immutability.
+
+## Currying
+
+currying is the technique of translating the evaluation of a function that takes multiple arguments into evaluating a sequence of functions, each with a single argument.[1](https://en.wikipedia.org/wiki/Currying)
+
+for exemple:
+
+```js
+const multiply = (x, y) => x * y
+
+multiply(2, 5) // 10
+```
+
+is simmilar to:
+
+```js
+const curryMultiply = x => y => x * y
+
+curryMultiply(2)(5) // 10
+
+//or using an itermediary function
+
+const curryMultiplyBy2 = curryMultiply(2) // 2 * y <- we executed first portion of the caculation once.
+curryMultiplyBy2(5) // 10 <- 2 * (5) <- we can execute second portion of the caculation many times without re-executing the first calculation again and again.
+```
+
+> Currying is a technique to gain on performance
+
+## Partial Application
+
+_partial application_ (or partial function application) refers to the process of fixing a number of arguments to a function, producing another function of smaller _arity_(or number of arguments).[2](https://en.wikipedia.org/wiki/Partial_application)
+
+```js
+const multiply = (x, y, z) => x * y * z
+
+const partialMultiplyBy2 = multiply.bind(null, 5)
+
+partialMultiplyBy2(5, 10) // 100 <- we transformed a function of arity = 3 to one of arity = 2
 ```

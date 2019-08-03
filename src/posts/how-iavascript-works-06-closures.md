@@ -165,7 +165,7 @@ multiplyByTen(5) // 50
 
 ready to unlock one of the most powerful feature of javascript
 
-A closure is when a function has access to the variable environment in wich it was declared even after leaving it.
+A closure is when a function has access to the variable environment in wich it was declared even after it did leave.
 
 So we have accecss to a special closure environment/scope in wich we put _referenced_ variables of the environment of an executed function (garbage collector can't delete them).
 
