@@ -1,5 +1,5 @@
 ---
-title: 'How Javascript Works 08 : Functional Programming'
+title: 'How Javascript Works 09 : Functional Programming'
 date: '2019-07-28'
 view-source: 'https://tylermcginnis.com/javascript-visualizer/'
 ---
@@ -109,14 +109,14 @@ const nameToItem = (name, arr) => {
 //const myitem = nameToItem('a', items)
 //console.log(myitem)
 
-const isActive = () => {
+const isActive = (user = user) => {
   if (!user.active) throw new Error('user not active')
 }
 
 const taxing = (item, tax) =>
   (item = { ...item, price: item.price * (1 + tax) })
 
-const addItemToCart = function(name) {
+const addItemToCart = function(user = user, name) {
   item = nameToItem(name, items)
   isActive()
   item = taxing(item, 0.03)
@@ -135,7 +135,7 @@ const addItemToCart = function(name) {
   ]
 }
 
-const buyItem = function(name) {
+const buyItem = function(user = user, name) {
   isActive()
   item = nameToItem(name, user.cart)
   if (user.cart.includes(item)) {
@@ -168,7 +168,7 @@ const buyItem = function(name) {
   }
 }
 
-const refund = function(name) {
+const refund = function(user = user, name) {
   isActive()
   item = nameToItem(name, user.purchases)
   if (user.purchases.includes(item)) {
@@ -193,7 +193,7 @@ const refund = function(name) {
   }
 }
 
-const emptyCart = () => {
+const emptyCart = (user = user) => {
   isActive()
   user.cart = []
 }
@@ -228,7 +228,7 @@ two condition for a function to be _pure_:
 
 Can we write our regular code with only pure functions? well, our code must interact and communicate with the outside world, that's a side effect right there, the idea is not to make all our functions 100% pure but to minimize side effects, to organize code to a part where functions are totally pure and other part where functions can have side effects, so that when we have a bug we know wich portion of the code to inspect and debug.
 
-> The goal of FP is to isolate _impure_ function, functions with side effects.
+> one of the goals of FP is to isolate _impure_ function, functions with side effects.
 
 How to build the perfect function in FP then?
 
@@ -328,7 +328,7 @@ yes, but if we have a lot of big heavy object, cloning them every time we want t
 
 ## closure and functional programming
 
-> we can use closure to access private ,sealed down, immutable data.
+> we can use closure to access private, immutable data.
 
 as long as our returned function stay pure and dont mess up with the original data.
 
@@ -393,3 +393,134 @@ const partialMultiplyBy2 = multiply.bind(null, 5)
 
 partialMultiplyBy2(5, 10) // 100 <- we transformed a function of arity = 3 to one of arity = 2
 ```
+
+difference between currying and partial applications:
+
+> Partial application expect to recieve all the rest of the arguments at the second call, currying expect only one argument at a time.
+
+## Memoization
+
+Memoization is an _optimization technique_ used primarily to speed up computer programs by _storing_ the results of _expensive_ function calls and returning the _cached_ result when the same inputs occur again.[3](https://en.wikipedia.org/wiki/Memoization)
+
+let's consider the following function:
+
+```js
+function toPower10(x) {
+  console.log('heavy claculation')
+  return x ** 100
+}
+
+toPower10(2) // 'heavy claculation' >> 1024
+toPower10(2) // 'heavy claculation' >> 1024
+toPower10(2) // 'heavy claculation' >> 1024
+```
+
+each time we call `toPower10(2)` it recalculate the same value, imagine if the calculation take a long time!
+
+how to improve our code?
+
+```js
+let cache = {}
+
+function memoToPower10(x) {
+  if (x in cache) {
+    return cache[x]
+  } else {
+    console.log('heavy claculation')
+    cache[x] = x ** 10
+    return cache[x]
+  }
+}
+
+memoToPower10(2) // heavy claculation' >> 1024 <- calculated
+memoToPower10(2) // 1024 <- use cache
+memoToPower10(2) // 1024 <- use cache
+```
+
+to avoid poluting the global scope with the object `cache` we can use closure.
+
+```js
+function memoToPower10() {
+  let cache = {} // now it is scoped inside the function
+
+    return function(x) {
+      if (x in cache) {
+          return cache[x]
+        }
+      } else {
+        console.log('heavy claculation')
+        cache[x] = x ** 10
+          return cache[x]
+        }
+    }
+}
+
+const memo = memoToPower10()
+memo(2) // heavy claculation' >> 1024 <- calculated
+memo(2) // 1024 <- use cache
+```
+
+now our function is more optimized and more pure.
+
+## Composition
+
+composition is breaking the logic of our program into little functions, each function operate on the data and pass the result to the next function.
+
+it's the same principle of how assembly line or conveyor belt in factories works.
+
+data --> fn --> data --> fn --> data --> fn --> data --> fn -->data
+
+```js
+const compose = (f, g) => x => f(g(x))
+const pipe = (f, g) => x => g(f(x))
+
+const addTo3 = x => x + 3
+
+const double = r => r * 2
+
+const addTo3AndDouble = compose(
+  addto3,
+  double
+)
+
+addTo3AndDouble(7) // 20
+```
+
+- the `compose()` function operate from right to left and the `pipe()` operate from left to right
+
+- in general: `compose() !== pipe()`
+
+## PS
+
+> The goal of using FP is to go from procedural functions and check every requierement to be the perfect function in FP.
+> functions without return statement are just procedures.
+
+## Inheritance vs Composition
+
+Inheritance is a super class extended to smaller pieces that add or overwrite things
+
+Composition is smaller pieces combined to create somthing bigger
+
+In inheritance we are concerned about structuring our code around what something is
+In composition we are concerned about structuring our code around what something has or what it does to data.
+
+Inheritance -
+
+_thight coupling_: repling effect after changing a small thing in your parent class,_thight coupling_ can generate :
+
+1. _fragile Base Class Problem_, if you change something in your class you have to make sure it does'nt break anythings in its subclasses.
+
+2. _Hierarchy Problem_: can leads to "gorilla banana" problem: when a subclass inherit properties and methods it does'nt need, so if you want a banana you instead get a gorilla, holding your banana and the all jungle with it.
+
+> lots of programmers argue that composition is a better solution long term than inheritance, because software created with composition is more stable and easy to extend.
+> inheritance :
+>
+> - few operation on common data
+> - stateful
+> - side effect
+> - imperative
+>   Composition :
+> - Many operation on fixed data
+> - stateless
+> - pure
+> - declarative
