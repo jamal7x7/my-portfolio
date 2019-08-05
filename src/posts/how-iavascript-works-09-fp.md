@@ -8,15 +8,17 @@ view-source: 'https://tylermcginnis.com/javascript-visualizer/'
 
 [//]: # '## Content'
 
-1.
-
-2)
-
-3.
-
-4.
-
-5. Composition vs inheritance
+1. Programming paradigms
+2. Pure functions
+3. Idempotence
+4. Declarative vs Imperative
+5. Immutability
+6. closure and functional programming
+7. Currying
+8. Partial Application
+9. Memoization
+10. Compose and Pipe
+11. Composition vs inheritance
 
 ---
 
@@ -504,22 +506,25 @@ Composition is smaller pieces combined to create somthing bigger
 In inheritance we are concerned about structuring our code around what something is
 In composition we are concerned about structuring our code around what something has or what it does to data.
 
-Inheritance -
+### Inheritance and thight coupling
 
 _thight coupling_: repling effect after changing a small thing in your parent class,_thight coupling_ can generate :
 
 1. _fragile Base Class Problem_, if you change something in your class you have to make sure it does'nt break anythings in its subclasses.
 
-2. _Hierarchy Problem_: can leads to "gorilla banana" problem: when a subclass inherit properties and methods it does'nt need, so if you want a banana you instead get a gorilla, holding your banana and the all jungle with it.
+2. _Hierarchy Problem_: can leads to "gorilla banana" problem: when a subclass inherit properties and methods it does'nt need, it's like wanting a banana you instead get a gorilla, holding your banana and the all jungle with it.
 
 > lots of programmers argue that composition is a better solution long term than inheritance, because software created with composition is more stable and easy to extend.
+
 > inheritance :
 >
 > - few operation on common data
 > - stateful
 > - side effect
 > - imperative
->   Composition :
+
+> Composition :
+>
 > - Many operation on fixed data
 > - stateless
 > - pure
