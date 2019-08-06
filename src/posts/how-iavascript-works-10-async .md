@@ -1,6 +1,6 @@
 ---
 title: 'How Javascript Works 10 - Asynchronous js'
-date: '2019-07-28'
+date: '2019-08-05'
 view-source: 'https://tylermcginnis.com/javascript-visualizer/'
 ---
 
