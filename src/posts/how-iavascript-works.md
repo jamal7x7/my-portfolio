@@ -21,7 +21,7 @@ that's why we need a js engine.
 
 js engine take a js code transform it to a code that a computer understand and execute.
 
-the first js engine "SpiderMonkey", was created by Brandon Eich also creator of javascript language while working for Netscape in 19
+the first js engine "SpiderMonkey", was created by Brandon Eich the creator of javascript while working for Netscape in 19
 
 js engine is nothing but a computer code that can transform a js code to a low level language like C++
 
@@ -30,7 +30,7 @@ js engine is nothing but a computer code that can transform a js code to a low l
 Parser => AST => Interpreter => Bytecode
 ............................ => Profiler => Compiler => Optimized Code
 
-A **<span class="orange">Parser</span>** : Execute a **lexical analysis** to our source code given as plain text and breaks it into **Tokens**(:based on keywords) to identify thiere meaning so we know what the code is trying to do, and those Tokens are formed to a Data structure called **<span class="orange"> AST </span>** (:[AST Explorer](astexplorer.net))
+A **<span class="orange">Parser</span>** : Execute a **lexical analysis** to our source code given as plain text and breaks it into **Tokens**(:based on keywords) to identify their meaning so we know what the code is trying to do, and those Tokens are formed to a Data structure called **<span class="orange"> AST </span>** (:[AST Explorer](astexplorer.net))
 After that comes the role of the **<span class="orange">Interpreter</span>** with all the other helpers to spit out some code that our computers then understande and can handle
 
 ```js
@@ -45,7 +45,7 @@ All these prossess must conform to **ECMAScript** standards, or else total chaos
 
 there are 2 ways to translate a js code (and most of other laguages) to a machine code:
 
-> using an **interpreter**: translate and read the sorce code line by line on the fly
+> using an **interpreter**: translate and read the source code line by line on the fly
 > or as Merriam Webster defines it :"a computer program that executes each of a set of high-level instructions before going to the next instruction"
 
 > using an **compiler**: create a translation ahead of time of the all file and compile it down directily to a machine code or " a computer program that translates an entire set of instructions written in a higher-level symbolic language (such as C) into machine language before the instructions can be executed" Merriam Wabster
@@ -84,4 +84,4 @@ that can look for ways to optimise over a slower Bytecode to a more efficient an
 
 ### why not just use machine code from the beginning ?
 
-Because it will take more time to wait for the js files to download and compile, another problem is that there is no binary standard that the browser manufacturers agreed on, may be that will change in the future with WebAsesembly but right now it's just
+Because it will take more time to wait for the js files to download and compile, another problem is that there is no binary standard that the browser manufacturers agreed on, may be that will change in the future with WebAsesembly.

@@ -34,6 +34,8 @@ There are only 7:
 - _symbol_: [Symbol('Hello Again!')]
 - _object_: {}
 
+> _bigint_ the 8th, a new primitive, still in stage 4 already implemented in V8
+
 Javascript has an operator colled _typeof_ that tells us the type of the value of a variable:
 so:
 
@@ -330,3 +332,105 @@ dynamically typed languages allow us to spend more time debugging logic and erro
 ## Strong vs weak typed languages
 
 weak typed laguages like javascript allow coercion to perform an operation like `'Hi' + 10`, while strong typed language (phyton, ruby, c# ...) don't allow that.
+
+---
+
+## PS
+
+the statement _"everything in javascript is an object"_ is false
+they behave like an object trought an operation called _boxing_ but they are not nececceraly an object exemple: the value `false`
+
+in javascript, variables don't have types, values do, unlike c, c++...
+we can say that js has value types
+
+> to unset a regular value like number use `undefined`
+> to unset an object reference use `null`
+
+### Emptiness
+
+undefined vs undeclared vs uninitialized(aka TDZ)
+
+undefined === there is definetly a variable and at the moment does'nt have a value
+undeclared === never ben created in any scope we have access to
+uninitialized === certain variables like block scoped ones never get initialized to `undefined`, you can not access it before initialization.
+
+js does not defferentiate between them, they are reduced all to `undefined`
+
+### Special value
+
+_NaN_("Not A Number") : or more accurately "invalid number",because `typeof NaN // "number"`
+
+- the result of a mathemathical operation with a **NaN** is always **NaN**, it propagate all the way out!
+- NaN is the only value that does not have an _identity property_ meaning it is not equal to it-self! `NaN === NaN // false`
+- to check if a value is NaN we use `ìsNaN(value)`, important note is that this utility coerce the value to _Number_ before it check for it to be NaN. it follows the ECMAScript algorithm :
+  1. Let num be ? ToNumber(number).
+  2. If num is NaN, return true.
+  3. Otherwise, return false.
+- a better utility is the ES6 `Number.isNaN(value)`: it checks for sure if a value is NaN without coersing them first to _Numbers_ it doess the following:
+
+  1. If Type(number) is not Number, return false.
+  2. If number is NaN, return true.
+  3. Otherwise, return false.
+
+- `Number.ìsNaN(value)` is equivalent to `Object.is(value, NaN)`
+
+_Negative Zero_: -0
+
+- `-0 === 0 // true` but `Object.is(0, -0) // false` (it's like doing a quadriple equals ====)
+  `
+  usefull in same cases like this one: (to ditermine the direction of a trend rate at rest or the direction of stoped car)
+
+```js
+function formatTrend(trendRate) {
+  var direction = trendRate < 0 || Object.is(trendRate, -0) ? 'down' : 'up'
+  return direction + Math.abs(trendRate)
+}
+
+formatTrend(-10) // "10 down"
+formatTrend(10) // "10 up"
+formatTrend(-0) // "0 down"
+formatTrend(0) // "0 up"
+```
+
+### Polyfill for Object.is(...)
+
+Instructions
+
+1. `Object.is(..)` should take two parameters.
+
+2. It should return `true` if the passed in parameters are exactly the same value (not just `===` -- see below!), or `false` otherwise.
+
+3. For `NaN` testing, you can use `Number.isNaN(..)`, but first see if you can find a way to test without usage of any utility?
+
+4. For `-0` testing, no built-in utility exists, but here's a hint: `-Infinity`.
+
+5. If the parameters are any other values, just test them for strict equality.
+
+6. You cannot use the built-in `Object.is(..)` -- that's cheating!
+
+Polyfill Pattern
+
+**NOTE:** Since your JS environment probably already has `Object.is(..)`, to test your polyfill you'll have to first unconditionally define it (no `if` guard), and then add the `if` guard when you're done.
+
+To define a polyfill, it looks like this:
+
+```js
+if (!Object.is) {
+	Object.is = function ObjectIs(..) { .. };
+}
+```
+
+```js
+
+function ObjectIs(v1, v2) {
+  if (Number.isNaN(v1) && Number.isNaN(v2) ) {
+    return true
+  } else {
+    return v1 === v2
+  }
+  if(v1 is? -0 && v2 is? 0 || v1 is? 0 && v2 is? -0  ){
+    return false
+  }
+ 
+}
+```
