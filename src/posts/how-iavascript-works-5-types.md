@@ -34,7 +34,7 @@ There are only 7:
 - _symbol_: [Symbol('Hello Again!')]
 - _object_: {}
 
-> _bigint_ the 8th, a new primitive, still in stage 4 already implemented in V8
+> _bigint_ the 8th new primitive, still in stage 4 already implemented in V8
 
 Javascript has an operator colled _typeof_ that tells us the type of the value of a variable:
 so:
@@ -134,7 +134,7 @@ console.log(clone2.color) // 'green'
 
 ## Type coercion
 
-Type coercion means the ability of a language to convert a certain type to another, in order to perform an operation between two different types:
+_Type coercion_ or _type convertion_ (as ECMAScript calls it) is the ability of a language to convert a certain type to another, in order to perform an operation between two different types:
 
 ```js
 true == 1 // true
@@ -164,6 +164,39 @@ javascript is a bit _forgiving_, it tries to 'help' the programmer by making an 
 
 Isn't that the core philosophy of creating a _heigh level_ programming languages in the first place, some poeple just dont get it! but this doesn't come cheap, there are rules to follow.
 
+**NOTES**:
+
+### ToPrimitive
+
+the abstruct operation _ToPrimitive ( input [ , PreferredType ] )_ (as stated in [ECMAScript](http://www.ecma-international.org/ecma-262/10.0/index.html#sec-abstract-operations)) is a conceptual operation performing type coercion, invoqued any time there is a need (like doing math operations or concatinations) to convert a non-premitive (array, function, object...) to a primitive, it "converts its _input_ argument to a non-Object type. If an object is capable of converting to more than one primitive type, it may use the optional hint _PreferredType_ to favour that type."
+
+_toPrimitive()_ :
+
+- is recursive until it returns a primitive or throw an error
+- is an algorithm (a set of steps) to convert a non-primitive to a premitive, it does the following:
+
+In js there are two method that could be available for any non-primitive: `valueOf()` and `toString()`,so:
+
+if _PreferredType_ is "number" -> apply `valueOf(input)` if it exist and if it returns a primitive, then _done_ if doesn't exist _or_ doesn't return a primitive -> aplly `toString(input)` if it returns a primitive, then _done_ if not -> generaly return an _Error_
+
+and vis-versa if _PreferredType_ is "string": try `toString(input)` then `valueOf(input)`
+
+### ToString
+
+other abstruct operation _ToString ( argument )_ converts argument to a value of type String follows these rules:
+
+```js
+
+undefined --> "undefined"
+null --> "null"
+true --> "true"
+false --> "false"
+Number --> NumberToString(argument)
+String --> argument
+Symbol --> Throw a TypeError
+object --> x = ToPrimitive(argument, hint String) ? -> ToString(x)
+```
+
 ### Edge cases
 
 javascript does its unintuitive magic sometimes, coercing what at first glance shoudn't be,there is even a [website](https://wtfjs.com/) didicated to that, but if we _know_ and follow the rules of coercion, it certainly will make sense.
@@ -182,7 +215,7 @@ because `+ true // 1`
 'hi' + +"what's up!" // hiNaN !!!
 ```
 
-because `+ "what's up!" // NaN`
+because `+"what's up!" // NaN`
 
 ```js
 9999999999999999 // 10000000000000000 !!!!
@@ -431,6 +464,6 @@ function ObjectIs(v1, v2) {
   if(v1 is? -0 && v2 is? 0 || v1 is? 0 && v2 is? -0  ){
     return false
   }
- 
+
 }
 ```
