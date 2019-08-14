@@ -197,6 +197,56 @@ Symbol --> Throw a TypeError
 object --> x = ToPrimitive(argument, hint String) ? -> ToString(x)
 ```
 
+if argument is object:
+
+```js
+[] --> ""
+[1,2,3] --> "1,2,3"
+[null, undefined] --> ","
+[null] --> ""
+[undefined] --> ""
+[[[],[],[]],[]] --> ",,,"
+[,,,,] --> ",,,"
+
+{} --> "[object Object]"
+{x: 10} --> "[object Object]" // <- not very helpful *!TODO is there another way
+{toString(){ return "Banana"}} --> "Banana" // JSON.stringify()
+
+
+```
+
+### ToNumber
+
+invoked anytime we have to do a numeric operation, and we don't have a number.
+
+```js
+
+undefined --> NaN
+null --> 0 // should be NaN
+true --> 1 // should be NaN
+false --> 0 // should be NaN
+Number --> argument
+String --> ...see below
+Symbol --> Throw a TypeError
+object --> x = ToPrimitive(argument, hint Number) ? -> ToNumber(x)
+```
+
+```js
+
+"" --> 0 // why not just NaN ?! <- "the root of all evil in js"
+"0" --> 0
+"-0" --> 0
+"    00002  " --> 2
+"1.234" --> 1.234
+"0." --> 0
+".0" --> 0
+"." --> NaN
+"0xfa" --> 250
+
+[] -->  | ToPrimitive([], hint Number) -> valueOf([]) -> toString([]) -> "" | -->ToNumber("")  --> 0
+
+```
+
 ### Edge cases
 
 javascript does its unintuitive magic sometimes, coercing what at first glance shoudn't be,there is even a [website](https://wtfjs.com/) didicated to that, but if we _know_ and follow the rules of coercion, it certainly will make sense.
@@ -323,6 +373,15 @@ String([, ,]) // ','
 NaN == NaN // false
 NaN === NaN // false
 Object.is(NaN, NaN) // true
+```
+
+```js
+const arr = Array(100).map((_, i) => i)
+// arr[i] === undefined  //
+
+//solution
+const arr = [...Array(100)].map((_, i) => i)
+// arr[i] === i  //
 ```
 
 > P.S: To avoid some of type coercion gotcha! always use 3 equals unless you have a good reason to use 2, as demonstrated in [this site](https://dorey.github.io/JavaScript-Equality-Table/) and [this one](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness) too, and for more in depth about coercion read the ECMAScript Specification Algorithm [here](http://www.ecma-international.org/ecma-262/10.0/index.html#sec-abstract-equality-comparison)
