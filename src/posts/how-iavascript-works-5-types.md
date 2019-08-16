@@ -164,7 +164,7 @@ javascript is a bit _forgiving_, it tries to 'help' the programmer by making an 
 
 Isn't that the core philosophy of creating a _heigh level_ programming languages in the first place, some poeple just dont get it! but this doesn't come cheap, there are rules to follow.
 
-**NOTES**:
+**NOTES:**
 
 ### ToPrimitive
 
@@ -212,7 +212,6 @@ if argument is object:
 {x: 10} --> "[object Object]" // <- not very helpful *!TODO is there another way
 {toString(){ return "Banana"}} --> "Banana" // JSON.stringify()
 
-
 ```
 
 ### ToNumber
@@ -247,9 +246,32 @@ object --> x = ToPrimitive(argument, hint Number) ? -> ToNumber(x)
 
 ```
 
+## ToBoolean
+
+what it does is : check the truty and falsy list, does'nt invoke _ToPrimitive_ or other abstruct operation.
+
+**NOTES:**
+
+- "You use coercion in javascript wheter you admit it or not, because you have to." K.Simpson
+- Rather than avoid using coercion because it's "magic", learn it.
+- Coercion sometimes works like magic, but its just logic, and if learned prperly, what seems to be magic desapairs.
+- Boxing : accessing properties on primitive values, it's a form of implicit coercion
+- It seems like every thing in javascript is an object, the trick is that javascript boxes primitive value that has an optimization in it, when you can acccess a property as if it was an object.
+- All languages uses type coercion, because it's absolutely necessary.
+- Every language have edge cases.
+- "if I can time travel and fix one thing in javascript, I would fix the root of All (coercion) evil: `"" --> 0`, to be `"" --> NaN` "K.Simpson
+
+-" javascript dynamic typing is ot a weakness, it's one of its strong qualities" KS
+-" it is _irresponsible_ to knowingly avoid usage of a feature that can improve code readability." KS
+
 ### Edge cases
 
-javascript does its unintuitive magic sometimes, coercing what at first glance shoudn't be,there is even a [website](https://wtfjs.com/) didicated to that, but if we _know_ and follow the rules of coercion, it certainly will make sense.
+javascript does its unintuitive magic sometimes, coercing what at first glance shoudn't be,there is even a [website](https://wtfjs.com/) didicated to those quirks, but if we _know_ and follow the rules of coercion, it certainly will make sense.
+
+"You don't avoid the all mecanism of coercion just to get around some of the corner cases. Insted, adopt a coding style that makes value types plain and obvious" KS
+
+Most of these corner cases have to do with numbers.
+And we can get rid of most of them if we elemenate this coercion: `"" --> 0`,
 
 some of this edge cases ( try not to pull your hair, if you still have any :)
 
@@ -271,7 +293,17 @@ because `+"what's up!" // NaN`
 9999999999999999 // 10000000000000000 !!!!
 ```
 
-and the most famous of them all:
+```js
+String(-0) // "0"   Opse !!!!
+```
+
+```js
+Boolean(new Boolean(false)) // true !!!
+```
+
+because `new Boolean(false)` is not in the falsy list, it behave like it's truty.
+
+_and the most famous of them all:_
 
 ```js
 0.1 + 0.3 === 0.4 // true
@@ -289,9 +321,11 @@ because:
 ```
 
 ```js
-3 > 2 > 1 // false
-1 < 2 < 3 // true
+1 < 2 < 3 // true <- (1 < 2) < 3 --> (true) < 3 --> 1 < 3 // true
+3 > 2 > 1 // false <- (3 > 2) > 1 --> (true) > 1 --> 1 > 1 is false
 ```
+
+it is just an accident, because what get evaluated first, is the first operation in both expresions, then coerced to 1.
 
 ```js
 '2' + 1 // '21'
@@ -526,3 +560,75 @@ function ObjectIs(v1, v2) {
 
 }
 ```
+
+## Equality
+
+== : check value (loose)
+=== : check value and type (strict)
+
+These two common asumptions are not exact, because "loose" equality or [Abstract Equality Comparison](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-abstract-equality-comparison) do type checking as first step in its algorithm.
+
+When types are the same, == and === both act the same, the real difference between them is whether or not coercion occures.
+
+so :
+
+== : allow coercion(different types)
+=== : disallow coercion(same types)
+
+is more accurate.
+
+we often use `===` to protect ourselfs from confusion of not knowing the types, know your types is a better strategie to produce a clear code with fewer bugs regardless of using `==` or `===`.
+
+```js
+obj.x === null || obj.x === undefined // to check if a value is not empty
+
+// a better and more redable way is :
+obj.x == null // or x == undefined
+```
+
+**Notes:**
+
+- `==` prefers numeric comparaison (ToNumber() occures in many steps of its ECMAScript algorithm)
+- make sensible comparaisons: compare a number to a string for exemple, not a number to an array, even if you manage to get by using `===` your code still have a begger problem.
+- `==` Summary:
+  - if types are the same: `===``
+  - if one is **null** and the other **undefined** : equal
+  - if non-primitives: ToPrimitive
+  - prefer: ToNumber
+
+```js
+;[] == ![] // true !!!
+```
+
+this corner case is insensible, never occures in real code, but even if we force it to to take place under whatever circonstances it make sense if we just apply the rules of `==` and corcion in js, so:
+
+```js
+
+[] --> toPrimitive() --> ToString() --> "" --> ToNumber() --> 0
+// and
+![] -->  ! Boolean([]) --> ! (true) --> false --> ToNumber() --> 0
+```
+
+- don't do `== true` or `== false`, allow the _ToBoolean()_ coercion to take place implicitly
+
+```js
+const arr = []
+
+if (arr) {
+  // YEP
+}
+
+if (arr == true) {
+  // NOPE!!!
+}
+
+if (arr == true) {
+  // YEP!!!
+}
+```
+
+-Avoid:
+
+1. `==` with 0 or "" (" ")
+2. `==` with non-primitive
+3. `== true` or `== false`: allow _ToBoolean_ or use `===`
