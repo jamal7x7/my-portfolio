@@ -632,3 +632,25 @@ if (arr == true) {
 1. `==` with 0 or "" (" ")
 2. `==` with non-primitive
 3. `== true` or `== false`: allow _ToBoolean_ or use `===`
+
+
+## Static Typing
+
+we have to use a coding style that make our types more obvious, we have to know our taypes, so coding without koning your types is a problem, how to solve it? with TupeScript or Flow?
+
+"I don't use TypeScript or Flow because they solve problem I don't have" KS
+
+### Benifits
+
+1. catch type-related mistakes
+2. Communicate type intent
+3. Provide IDE feedback
+
+### Caviates
+
+1. Inferencing is best-guess, not a guarantee
+2. Anotations are optional
+3. Any parts of the application that isn't typed introduce incertainty
+
+
+"You just cannot write quality JS programs without knowing the types involved in your operations" KS
