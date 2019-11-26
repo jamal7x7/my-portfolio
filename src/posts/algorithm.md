@@ -12,10 +12,8 @@ A post about GraphQL
 
 ## Content
 
-1. Schema
-2. Queries
-3. Mutations
-4. Sunbscriptions
+1. What is an algorithm?a
+2. Problem solving strategies
 
 ---
 
