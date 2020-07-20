@@ -10,7 +10,7 @@ view-source: 'https://cs.slides.com/colt_steele/problem-solving-patterns#/21'
 
 A post about GraphQL
 
-## Content
+# Content
 
 1. What is an algorithm?a
 2. Problem solving strategies
@@ -19,8 +19,21 @@ A post about GraphQL
 
 ---
 
-# What is an algorithm?
-An algorithm is a prosess or set of steps to solve a problem or accomplish a certain task
+## What is an Algorithm
+
+An algorithm is:
+
+- a process or set of steps to solve a problem or accomplish a certain task
+- a step by step procedure for solving a computational problem
+- a finite set of instructions that, if followed accomplishes a particular task.
+
+In addition, all algorithms must satisfy following criteria :
+
+- Input: Zero or more quantities are externally supplied
+- Output: At least one quantity is produced
+- Definiteness : Each instruction is clear and unambiguous
+- Finiteness: If we trace out instruction of an algorithm then for all cases, algorithm terminates after a finite number of steps.
+- Effectiveness : Every inotruction must be very basic, so that it can be carried out, in principle, by a person using only paper and bencil.
 
 why should I know this? it's the foundation for being a seccussful problem solving and developer
 
@@ -137,3 +150,63 @@ to improve your code
 - Can you improve the performance of your solution?
 - Can you think of other ways to refactor?
 - How have other people solved this problem?
+
+## Frequency count method
+
+```js
+
+function add(A, B, n) {
+
+    
+  
+} 
+
+```
+
+```js
+
+function multiply(A, B, n) {
+
+    
+  
+} // f(n) =   O(n) = n**3
+
+```
+
+
+```js
+
+function a(n) {
+    
+    for(let i=0;i<n;i++) {
+        for(let j=0;j<i;j++) {
+            //Stmt
+        }
+    }
+
+
+  
+} // f(n) = n(n+1)/2  0(n) = n**2
+
+
+```
+
+```js
+function b(n) {
+    p=0
+    for(let i=0;p<n;i++) {
+        p = p + i
+    }
+} // f(n) = (1+(1+8n)**1/2)/2 -> O(n) = n**(1/2)
+
+```
+
+```js
+function c(n) {
+    
+    for(let i=1;i<n;i=i*2) {
+        //Stmt
+    }
+} // f(n) =  -> O(n) = log2 (n)
+
+```

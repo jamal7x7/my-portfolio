@@ -21,7 +21,7 @@ that's why we need a js engine.
 
 js engine take a js code transform it to a code that a computer understand and execute.
 
-the first js engine "SpiderMonkey", was created by Brandon Eich the creator of javascript while working for Netscape in 19
+the first js engine "SpiderMonkey", was created by Brandon Eich the creator of javascript while working for Netscape in 19XX.
 
 js engine is nothing but a computer code that can transform a js code to a low level language like C++
 
