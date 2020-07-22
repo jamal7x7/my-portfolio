@@ -47,7 +47,7 @@ export default () => {
 
       <div>
         {data.allMarkdownRemark.edges.map(v => (
-          <Link className={blogStyles.link} to={`/blog/${v.node.fields.slug}`}>
+          <Link className={blogStyles.link} to={`/blog${v.node.fields.slug}`}>
             <li className={blogStyles.container}>
               <h2 style={{ color: '#8C4EF8' }}> {v.node.frontmatter.title} </h2>
               <p> {v.node.frontmatter.date} </p>
@@ -59,4 +59,4 @@ export default () => {
   )
 }
 
-// {<div dangerouslySetInnerHTML={{ __html: v.node.html }} />}
+//  {<div dangerouslySetInnerHTML={{ __html: v.node.html }} />}
