@@ -29,24 +29,24 @@ There are only 7:
 - _null_: has one value => null
 - _undefined_: has one value => undefined
 - _number_: has exactly 18437736874454810627 (that is, 2^64 - 2^53 + 3) values [7]
-- _btring_: from zero to 2^53 - 1 elements(UTF-16 code unit value) ['hello']
+- _string_: from zero to 2^53 - 1 elements(UTF-16 code unit value) ['hello']
 - _boolean_: can be one of the two values {true, false}
 - _symbol_: [Symbol('Hello Again!')]
 - _object_: {}
 
-> _bigint_ the 8th new primitive, still in stage 4 already implemented in V8
+> _bigint_ the 8th new primitive, recently added to the language.
 
-Javascript has an operator colled _typeof_ that tells us the type of the value of a variable:
-so:
+Javascript has an operator called _typeof_ that tells us the type of the **value** currently in a variable, so:
 
 ```js
 //Primitives
-typeof null // 'object' which is weird!
+typeof null // 'object'   ------->   which is weird!
 typeof Undefined // 'undefined'
 typeof 7 // 'number'
 typeof 'Hello!' // 'string'
 typeof true // 'boolean'
 typeof Symbol('Hello Again!') // 'symbol'
+typeof 1n  // 'bigint'
 
 //Non-Primitives
 typeof {} // 'object'
@@ -79,6 +79,11 @@ console.log(f.hi) // 'Hi!'
 > To test if a variable is an array we can't simply type `typeof [1,2,3]` because it will return 'object', use `Array.isArray([1,2,3]) // true` instead.
 
 > In javascript variables don't have types, values do (unlike java, C, C++ ...)
+
+> Most values in javascript can behave like objects (by a procedure called boxing!), but that does'nt make them object! they are caracterised by one of the 8 javascript types [more...](https://www.ecma-international.org/ecma-262/11.0/index.html#sec-ecmascript-language-types)
+
+> The _tupeof_ operator always return a string!
+
 
 > <br/>
 > <br/>
@@ -455,9 +460,16 @@ But it makes our code a bit more harder to read by adding another layer of comle
 
 dynamically typed languages allow us to spend more time debugging logic and errors of our code than debuging syntax and semantics.
 
+<br/>
+<br/>
+<br/>
+
 ## Strong vs weak typed languages
 
 weak typed laguages like javascript allow coercion to perform an operation like `'Hi' + 10`, while strong typed language (phyton, ruby, c# ...) don't allow that.
+
+<br/>
+<br/>
 
 ---
 
@@ -472,6 +484,10 @@ we can say that js has value types
 > to unset a regular value like number use `undefined`
 > to unset an object reference use `null`
 
+<br/>
+<br/>
+
+
 ### Emptiness
 
 undefined vs undeclared vs uninitialized(aka TDZ)
@@ -481,6 +497,10 @@ undeclared === never ben created in any scope we have access to
 uninitialized === certain variables like block scoped ones never get initialized to `undefined`, you can not access it before initialization.
 
 js does not defferentiate between them, they are reduced all to `undefined`
+
+<br/>
+<br/>
+
 
 ### Special value
 
@@ -504,19 +524,22 @@ _Negative Zero_: -0
 
 - `-0 === 0 // true` but `Object.is(0, -0) // false` (it's like doing a quadriple equals ====)
   `
-  usefull in same cases like this one: (to ditermine the direction of a trend rate at rest or the direction of stoped car)
+  usefull in same cases like this one: (to ditermine the direction of a trend rate at rest or the direction of a stoped car)
 
 ```js
 function formatTrend(trendRate) {
-  var direction = trendRate < 0 || Object.is(trendRate, -0) ? 'down' : 'up'
-  return direction + Math.abs(trendRate)
+  var direction = trendRate < 0 || Object.is(trendRate, -0) ? '🔻' : '🔺'
+  return  direction + Math.abs(trendRate)
 }
 
-formatTrend(-10) // "10 down"
-formatTrend(10) // "10 up"
-formatTrend(-0) // "0 down"
-formatTrend(0) // "0 up"
+formatTrend(-10) // "🔻 10"
+formatTrend(10) // "🔺 10"
+formatTrend(-0) // "🔻 0"
+formatTrend(0) // "🔺 0"
 ```
+<br/>
+<br/>
+
 
 ### Polyfill for Object.is(...)
 
@@ -548,18 +571,54 @@ if (!Object.is) {
 
 ```js
 
-function ObjectIs(v1, v2) {
-  if (Number.isNaN(v1) && Number.isNaN(v2) ) {
-    return true
-  } else {
-    return v1 === v2
-  }
-  if(v1 is? -0 && v2 is? 0 || v1 is? 0 && v2 is? -0  ){
-    return false
-  }
+function objectIs(x,y) {
 
+    // if t is NaN && v is NaN return true else return false
+    if (Number.isNaN(x) && Number.isNaN(y)  ) {
+        return true
+    } 
+ 
+    // if t is -0 && v is -0 return true else return false 
+    if (1/x===-Infinity && 1/y===-Infinity) {
+        return true
+    } 
+
+    if (1/x===-Infinity && y===0 || x===0 && 1/y===-Infinity  ) {
+       
+        return false
+    } 
+
+    
+    // if t is  !NaN && t is !-0 then if v === t return true else return false
+      
+        return x === y
+    
+        
 }
+
+objectIs(41, 41) // true
+objectIs(-0, -0) // true
+objectIs(-0, 0) // false
+
+
+// 
+// function ObjectIs(v1, v2) {
+  // if (Number.isNaN(v1) && Number.isNaN(v2) ) {
+    // return true
+  // } else {
+    // return v1 === v2
+  // }
+  // if(v1 is? -0 && v2 is? 0 || v1 is? 0 && v2 is? -0  ){
+    // return false
+  // }
+// 
+// }
+
+
 ```
+<br/>
+<br/>
+
 
 ## Equality
 
@@ -585,6 +644,9 @@ obj.x === null || obj.x === undefined // to check if a value is not empty
 // a better and more redable way is :
 obj.x == null // or x == undefined
 ```
+<br/>
+<br/>
+
 
 **Notes:**
 
