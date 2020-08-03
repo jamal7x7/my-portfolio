@@ -218,6 +218,34 @@ if argument is object:
 {toString(){ return "Banana"}} --> "Banana" // JSON.stringify()
 
 ```
+PS: we can use a custom function `stringify` * to know what type of object we are dealing with :
+
+```js
+function stringify (x) {
+    console.log(Object.prototype.toString.call(x));
+}
+
+//so 
+
+//Function objects:
+stringify(function (){}) //-> [object Function]
+
+//Array objects:
+stringify([]) //-> [object Array]
+
+//RegExp objects
+stringify(/x/) //-> [object RegExp]
+
+//Date objects
+stringify(new Date) //-> [object Date]
+
+//… 
+
+//and Object objects!
+stringify({}) //-> [object Object]
+
+```
+(*)reference from [this stackoverflow](https://stackoverflow.com/questions/4750225/what-does-object-object-mean) post
 
 ### ToNumber
 
@@ -225,10 +253,10 @@ invoked anytime we have to do a numeric operation, and we don't have a number.
 
 ```js
 
-undefined --> NaN
-null --> 0 // should be NaN
-true --> 1 // should be NaN
-false --> 0 // should be NaN
+undefined --> NaN // 👍 good!
+null --> 0 // 😱 should be NaN
+true --> 1 // 😱 should be NaN
+false --> 0 // 😱 should be NaN
 Number --> argument
 String --> ...see below
 Symbol --> Throw a TypeError
@@ -239,7 +267,7 @@ object --> x = ToPrimitive(argument, hint Number) ? -> ToNumber(x)
 
 "" --> 0 // why not just NaN ?! <- "the root of all evil in js"
 "0" --> 0
-"-0" --> 0
+"-0" --> -0
 "    00002  " --> 2
 "1.234" --> 1.234
 "0." --> 0
@@ -247,7 +275,14 @@ object --> x = ToPrimitive(argument, hint Number) ? -> ToNumber(x)
 "." --> NaN
 "0xfa" --> 250
 
+// ToNumber(Object/Array) --> toString()
+
 [] -->  | ToPrimitive([], hint Number) -> valueOf([]) -> toString([]) -> "" | -->ToNumber("")  --> 0
+[""] --> 0 // 
+["0"] --> 0
+["-0"] --> -0
+[null] --> "" --> 0
+[undefined] --> "" --> 0
 
 ```
 
