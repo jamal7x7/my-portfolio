@@ -382,7 +382,7 @@ parseInt('05') // 5
 parseInt('06') // 6
 parseInt('07') // 7
 parseInt('08') // 0 in older implementation, // 8 now
-parseInt('09') // 0 in older implementation, // 8 now
+parseInt('09') // 0 in older implementation, // 9 now
 parseInt('10') // 10
 ```
 
@@ -751,3 +751,9 @@ we have to use a coding style that make our types more obvious, we have to know 
 
 
 "You just cannot write quality JS programs without knowing the types involved in your operations" KS
+
+
+
+### references:
+
+(One Rule and Three Exceptions to Understand JavaScript Coercion)[https://codeburst.io/one-rule-and-three-exceptions-to-understand-javascript-coercion-35289365c449]
