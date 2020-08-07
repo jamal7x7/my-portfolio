@@ -300,9 +300,14 @@ what it does is : check the truty and falsy list, does'nt invoke _ToPrimitive_ o
 - All languages uses type coercion, because it's absolutely necessary.
 - Every language have edge cases.
 - "if I can time travel and fix one thing in javascript, I would fix the root of All (coercion) evil: `"" --> 0`, to be `"" --> NaN` "K.Simpson
+- "In JS, everything is an object" claim come from "Boxing"(accessing methods and properties directly on pimitives as if they were objects!)
 
--" javascript dynamic typing is ot a weakness, it's one of its strong qualities" KS
+-" javascript dynamic typing is not a weakness, it's one of its strong qualities" KS
 -" it is _irresponsible_ to knowingly avoid usage of a feature that can improve code readability." KS
+
+-"use implicite coercion when testing if a value is set or not to an object because `Boolean(null)` and `Boolean(undefined)` both falsy and `Boolean({})` is truthy, avoid it whendealing with numbers and strings b/c of corner cases" KS
+
+-" it's a terribles idea to coerce boolean into numbers, better if `Number(true`/`false)`throws a `NaN` " KS
 
 ### Edge cases
 
